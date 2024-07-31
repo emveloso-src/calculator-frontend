@@ -22,8 +22,9 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const operationsURL = "http://localhost:8081/api/v0/operations";
-  const recordsURL = "http://localhost:8081/api/v0/records";
+  const host = "https://git.heroku.com/fathomless-cove-02835.git:8081"
+  const operationsURL = host + "/api/v0/operations";
+  const recordsURL = host +"/api/v0/records";
 
   const SQUARE_ROOT_OPTION_ID = 5;
   const RANDOM_OPTION_ID = 6;

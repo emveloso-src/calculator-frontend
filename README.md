@@ -12,4 +12,3 @@ To get started with this project, clone the repository and install the dependenc
 3. Open the downloaded folder in your terminal of choice and write: npm install
 4. After everything has installed write: npm run dev
 5. Backend must be up and running
-6. Frontend will be in port 5174 ( http://localhost:5174/)

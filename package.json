@@ -2,6 +2,9 @@
   "name": "react-calculator",
   "private": true,
   "version": "1.0.0",
+    "engines": {
+      "node": "v20.15.0"
+    },
   "type": "module",
   "scripts": {
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",

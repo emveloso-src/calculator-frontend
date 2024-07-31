@@ -1,1 +1,1 @@
-web: npm run preview
+web: serve -s build

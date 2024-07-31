@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "engines": {
     "node": "v20.15.0"
+    ,
+    "npm": "v10.8.2"
   },
   "type": "module",
   "scripts": {

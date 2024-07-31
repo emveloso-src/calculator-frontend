@@ -2,14 +2,15 @@
   "name": "react-calculator",
   "private": true,
   "version": "1.0.0",
-    "engines": {
-      "node": "v20.15.0"
-    },
+  "engines": {
+    "node": "v20.15.0"
+  },
   "type": "module",
   "scripts": {
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest",
+    "eject": "react-scripts eject",
     "start": "serve -s build",
     "build": "react-scripts build",
     "dev": "react-scripts start"
@@ -20,7 +21,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "^6.25.1",
+    "react-scripts": "^4.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -22,7 +22,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const host = "https://git.heroku.com/fathomless-cove-02835.git:8081"
+  const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com/";
   const operationsURL = host + "/api/v0/operations";
   const recordsURL = host +"/api/v0/records";
 

@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com/";
+  const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com";
   const loginURL = host + "/api/v0/login";
 
   const handleSubmit = async (e) => {

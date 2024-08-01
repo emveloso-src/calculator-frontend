@@ -1,1 +1,1 @@
- web: npm run start --host '0.0.0.0'
+ web: npm run start 

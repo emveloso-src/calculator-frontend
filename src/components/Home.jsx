@@ -24,7 +24,7 @@ const Home = () => {
 
   const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com";
   const operationsURL = host + "/api/v0/operations";
-  const recordsURL = host +"/api/v0/records";
+  const recordsURL = host + "/api/v0/records";
 
   const SQUARE_ROOT_OPTION_ID = 5;
   const RANDOM_OPTION_ID = 6;

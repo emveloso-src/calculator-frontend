@@ -22,22 +22,31 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com";
-  const operationsURL = host + "/api/v0/operations";
-  const recordsURL = host +"/api/v0/records";
+  const operationsURL = "http://localhost:8081/api/v0/operations";
+  const recordsURL = "http://localhost:8081/api/v0/records";
 
   const SQUARE_ROOT_OPTION_ID = 5;
   const RANDOM_OPTION_ID = 6;
 
   const options = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   useEffect(() => {
     const fetchOptionsList = async () => {
       try {
-        const response = await fetch(operationsURL, options);
+        const sessionUser = JSON.parse(localStorage.getItem("user"));
+        const optionsURL = {
+          ...options,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionUser.token,
+          },
+        };
+        const response = await fetch(operationsURL, optionsURL);
         const data = await response.json();
         setOperationsList(data);
       } catch (e) {
@@ -58,9 +67,16 @@ const Home = () => {
     try {
       const sessionUser = JSON.parse(localStorage.getItem("user"));
 
+      const optionsURL = {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionUser.token,
+        },
+      };
       const response = await fetch(
         `${recordsURL}?userId=${sessionUser.id}&page=${page}&size=${size}&operationId=${filter}`,
-        options
+        optionsURL
       );
 
       if (!response.ok) {
@@ -69,14 +85,14 @@ const Home = () => {
 
       const data = await response.json();
 
-      setTotalPages(data.totalPages || 0); 
-      setCurrentPage(data.currentPage || 0); 
-      setOperationLogs(data.content || []); 
+      setTotalPages(data.totalPages || 0);
+      setCurrentPage(data.currentPage || 0);
+      setOperationLogs(data.content || []);
 
       if (data.content && data.content.length > 0) {
         setBalance(data.content[0].balance);
       } else {
-        setBalance(sessionUser.balance || 0); 
+        setBalance(sessionUser.balance || 0);
       }
     } catch (error) {
       setErrors((prevErrors) => ({ ...prevErrors, fetch: error.message }));
@@ -92,11 +108,15 @@ const Home = () => {
   }, [currentPage, pageSize]);
 
   const deleteRecord = async (id, cost) => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const url = `${recordsURL}?id=${id}`;
-   
-      const response = await fetch(url, {...options, method: 'DELETE'});
+      const sessionUser = JSON.parse(localStorage.getItem("user"));
+      const response = await fetch(url, {
+        ...options,
+        Authorization: "Bearer " + sessionUser.token,
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete record");
@@ -104,12 +124,11 @@ const Home = () => {
 
       await fetchUserRecords(currentPage, pageSize);
       setBalance(balance + cost);
-
     } catch (error) {
       console.error("Error deleting record:", error);
       setErrors((prevErrors) => ({ ...prevErrors, delete: error.message }));
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -150,7 +169,11 @@ const Home = () => {
     };
 
     try {
-      const response = await fetch(recordsURL, optionsPOST);
+      const optionsRec = {
+        ...optionsPOST,
+        Authorization: "Bearer " + sessionUser.token,
+      };
+      const response = await fetch(recordsURL, optionsRec);
       if (response.status == 400) {
         const errorData = await response.json();
         setErrors({ message: errorData.message });

@@ -9,15 +9,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const host = "https://fathomless-cove-02835-73af93fd2fad.herokuapp.com";
-  const loginURL = host + "/api/v0/login";
+  const loginURL = "http://localhost:8081/api/v0/login";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       const options = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ user: email, password: password }),
       };
       try {
@@ -25,9 +26,10 @@ const Login = () => {
         const data = await response.json();
         if (!data.message) {
           const user = {
-            email: data.username,
-            id: data.id,
-            balance: data.balance,
+            email: data.body.username,
+            id: data.body.id,
+            balance: data.body.balance,
+            token: data.body.token,
           };
           localStorage.setItem("user", JSON.stringify(user));
           navigate("/home");
